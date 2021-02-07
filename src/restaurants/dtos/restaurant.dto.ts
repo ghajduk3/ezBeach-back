@@ -9,4 +9,6 @@ export class RestaurantDto {
   address: string;
   createdOn?: Date;
   updatedOn?: Date;
+  logo_loc?: string;
+  bck_img_loc?: string;
 }

@@ -14,6 +14,8 @@ export class RestaurantEntity {
   @Column({ type: 'float', nullable: true }) lat?: number;
   @Column({ type: 'float', nullable: true }) lon?: number;
   @Column({ type: 'varchar', nullable: false }) address: string;
+  @Column({ type: 'varchar', nullable: false }) bck_img_loc?: string;
+  @Column({ type: 'varchar', nullable: false }) logo_loc?: string;
   @CreateDateColumn() createdOn?: Date;
   @UpdateDateColumn() updatedOn?: Date;
 }

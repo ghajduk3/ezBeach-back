@@ -5,13 +5,16 @@ import { RestaurantService } from './services/restaurant.service';
 import { RestaurantController } from './controllers/restaurant.controller';
 import { RestaurantRepository } from './repositories/restaurant.repository';
 import { Connection } from 'typeorm';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RestaurantEntity, RestaurantRepository])],
+  imports: [
+    MulterModule.register(),
+    TypeOrmModule.forFeature([RestaurantEntity, RestaurantRepository]),
+  ],
   providers: [RestaurantService],
   controllers: [RestaurantController],
 })
 export class RestaurantsModule {
   constructor(private connection: Connection) {}
-
 }
