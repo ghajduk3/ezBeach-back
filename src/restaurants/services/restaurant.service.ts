@@ -12,8 +12,10 @@ export class RestaurantService {
     return rests.map((rest) => toRestaurantDto(rest));
   }
 
-  async createRestaurant(restaurantDto: RestaurantDto): Promise<RestaurantDto> {
-    const restaurantEntity = await this.restRepo.create(restaurantDto);
+  async createRestaurant(restaurantDto: RestaurantDto,images:Record<string,any>): Promise<RestaurantDto> {
+    restaurantDto.bck_img_loc = images.background[0].path;
+    restaurantDto.logo_loc = images.logo[0].path;
+    const restaurantEntity = this.restRepo.create(restaurantDto);
     await this.restRepo.save(restaurantEntity);
     return toRestaurantDto(restaurantEntity);
   }

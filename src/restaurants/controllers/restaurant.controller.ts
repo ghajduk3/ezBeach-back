@@ -40,11 +40,8 @@ export class RestaurantController {
   async create(
     @Req() req: any,
     @UploadedFiles() images,
-    // @UploadedFile() logo,
     @Body() restaurantDto: RestaurantDto,
   ): Promise<RestaurantDto> {
-    restaurantDto.bck_img_loc = images.background[0].path;
-    restaurantDto.logo_loc = images.logo[0].path;
-    return await this.restaurantService.createRestaurant(restaurantDto);
+    return await this.restaurantService.createRestaurant(restaurantDto,images);
   }
 }
