@@ -18,10 +18,14 @@ import {
   uploadInterceptor,
 } from '../../shared/interceptors';
 import * as path from 'path';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('restaurant')
 export class RestaurantController {
-  constructor(private restaurantService: RestaurantService) {}
+  constructor(
+    private restaurantService: RestaurantService,
+    private conf: ConfigService,
+  ) {}
   @Get('')
   async findAll(@Req() req: any): Promise<RestaurantDto[]> {
     return await this.restaurantService.getAllRestaurants();
@@ -42,6 +46,6 @@ export class RestaurantController {
     @UploadedFiles() images,
     @Body() restaurantDto: RestaurantDto,
   ): Promise<RestaurantDto> {
-    return await this.restaurantService.createRestaurant(restaurantDto,images);
+    return await this.restaurantService.createRestaurant(restaurantDto, images);
   }
 }
