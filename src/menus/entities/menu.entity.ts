@@ -13,12 +13,12 @@ import { CategoryEntity } from './category.entity';
 
 @Entity({ name: 'menus' })
 export class MenuEntity extends BaseEntity {
-  @ManyToOne(() => RestaurantEntity, { eager: false })
+  @ManyToOne(() => RestaurantEntity, { eager: false,onDelete : 'CASCADE', onUpdate :'CASCADE'})
   @JoinColumn([{ name: 'restaurantId', referencedColumnName: 'id' }])
-  restaurant: RestaurantEntity;
+  restaurant?: RestaurantEntity;
   @Column()
   restaurantId: number;
 
   @OneToMany(()=>CategoryEntity, category =>category.menuId,{eager:true})
-  categories: CategoryEntity[];
+  categories?: CategoryEntity[];
 }

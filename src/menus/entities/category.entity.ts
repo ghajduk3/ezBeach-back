@@ -6,7 +6,7 @@ import { ItemEntity } from './item.entity';
 
 @Entity('category')
 export class CategoryEntity extends BaseEntity{
-  @ManyToOne(() => RestaurantEntity)
+  @ManyToOne(() => MenuEntity,{onDelete : 'CASCADE', onUpdate :'CASCADE'})
   @JoinColumn([{ name: 'menuId', referencedColumnName: 'id' }])
   // menu: MenuEntity;
   @Column()

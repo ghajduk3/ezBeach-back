@@ -8,7 +8,7 @@ import { BaseEntity } from './base.entity';
 export class ItemEntity extends BaseEntity {
   @Column({ type: 'float', nullable: false }) price: number;
   @Column({ type: 'varchar', width: 5, default: 'eur' }) currency?: string;
-  @ManyToOne(() => CategoryEntity)
+  @ManyToOne(() => CategoryEntity, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn([{ name: 'categoryId', referencedColumnName: 'id' }])
   // category: CategoryEntity;
   @Column()
