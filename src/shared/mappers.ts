@@ -13,6 +13,7 @@ export const toRestaurantDto = (data: RestaurantEntity): RestaurantDto => {
     updatedOn,
     bck_img_loc,
     logo_loc,
+    owner_id,
   } = data;
 
   const restaurantDto: RestaurantDto = {
@@ -25,7 +26,8 @@ export const toRestaurantDto = (data: RestaurantEntity): RestaurantDto => {
     createdOn,
     updatedOn,
     bck_img_loc,
-    logo_loc
+    logo_loc,
+    owner_id
   };
   return restaurantDto;
 };
@@ -38,6 +40,7 @@ export const toRestaurantEntity = (data: RestaurantDto): RestaurantEntity => {
     lon: data.lon,
     address: data.address,
     bck_img_loc: data.bck_img_loc,
-    logo_loc: data.logo_loc
+    logo_loc: data.logo_loc,
+    owner_id: data.owner_id
   };
 };

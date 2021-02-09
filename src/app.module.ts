@@ -10,6 +10,7 @@ import { RestaurantEntity } from './restaurants/entities/restaurant.entity';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config/config';
 import { DatabaseConfig } from './config/database.config';
+import { MenusModule } from './menus/menus.module';
 
 
 @Module({
@@ -26,6 +27,7 @@ import { DatabaseConfig } from './config/database.config';
       load:[config],
       envFilePath :'environments/.env.' + process.env.NODE_ENV
     }),
+    MenusModule,
   ],
   controllers: [AppController],
   providers: [AppService],

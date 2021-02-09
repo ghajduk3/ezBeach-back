@@ -11,4 +11,5 @@ export class RestaurantDto {
   updatedOn?: Date;
   logo_loc?: string;
   bck_img_loc?: string;
+  owner_id?: number;
 }

@@ -16,6 +16,7 @@ export class RestaurantEntity {
   @Column({ type: 'varchar', nullable: false }) address: string;
   @Column({ type: 'varchar', nullable: false }) bck_img_loc?: string;
   @Column({ type: 'varchar', nullable: false }) logo_loc?: string;
+  @Column({ type: 'int', nullable: false, default: 1 }) owner_id: number;
   @CreateDateColumn() createdOn?: Date;
   @UpdateDateColumn() updatedOn?: Date;
 }
