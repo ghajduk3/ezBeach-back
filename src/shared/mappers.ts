@@ -1,5 +1,5 @@
-import { RestaurantEntity } from '../restaurants/entities/restaurant.entity';
-import { RestaurantDto } from '../restaurants/dtos/restaurant.dto';
+import { RestaurantEntity } from '../modules/restaurants/entities/restaurant.entity';
+import { RestaurantDto } from '../modules/restaurants/dtos/restaurant.dto';
 
 export const toRestaurantDto = (data: RestaurantEntity): RestaurantDto => {
   const {

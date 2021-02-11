@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { RestaurantDto } from '../dtos/restaurant.dto';
 import { RestaurantRepository } from '../repositories/restaurant.repository';
-import { toRestaurantDto, toRestaurantEntity } from '../../shared/mappers';
+import { toRestaurantDto, toRestaurantEntity } from '../../../shared/mappers';
 
 @Injectable()
 export class RestaurantService {

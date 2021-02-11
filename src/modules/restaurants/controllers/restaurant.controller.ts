@@ -11,12 +11,11 @@ import {
 import { RestaurantDto } from '../dtos/restaurant.dto';
 import { RestaurantService } from '../services/restaurant.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { editFileName, imageFileFilter } from '../../shared/utils';
 import { diskStorage } from 'multer';
 import {
   MultipleUploadInterceptor,
   uploadInterceptor,
-} from '../../shared/interceptors';
+} from '../../../interceptors/interceptors';
 import * as path from 'path';
 import { ConfigService } from '@nestjs/config';
 
