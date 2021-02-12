@@ -2,15 +2,21 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, Query
 import { MenuService } from '../services/db/menu.service';
 import { MenuDto } from '../dto/menu.dto';
 import { createMenuDto } from '../dto/createMenuDto.dto';
+import { BaseService } from '../../../common/crud/base.service';
+import { MenuEntity } from '../entities/menu.entity';
+// import { Menu1Service } from '../services/db/menu1.service';
 
 @Controller('menu')
 export class MenuController {
-  constructor(private readonly menuService: MenuService) {}
+  constructor(
+    private readonly menuService: MenuService,
+  ) {}
 
   @Get()
   async findAllMenus(@Req() req: any): Promise<MenuDto[]> {
+
     const menus = await this.menuService.getAllMenus();
-    return menus.map((menu) =>menu.toDto());
+    return menus.map((menu) => menu.toDto());
   }
 
   @Post()

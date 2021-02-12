@@ -16,6 +16,8 @@ import { CategoryRepository } from './repositories/category.repository';
 import { ItemEntity } from './entities/item.entity';
 import { ItemRepository } from './repositories/item.repository';
 
+import { Menu1Repo } from './repositories/menu1repo';
+
 @Module({
   imports: [
     MulterModule.register(),
@@ -26,6 +28,7 @@ import { ItemRepository } from './repositories/item.repository';
       CategoryRepository,
       ItemEntity,
       ItemRepository,
+      Menu1Repo
     ]),
     ConfigModule,
   ],

@@ -5,7 +5,10 @@ import { createMenuDto } from '../../dto/createMenuDto.dto';
 
 @Injectable()
 export class MenuService {
-  constructor(private readonly menuRepo: MenuRepository) {}
+  constructor(private readonly menuRepo: MenuRepository
+  ) {
+
+  }
 
   async getAllMenus(): Promise<MenuEntity[]> {
     return await this.menuRepo.findAll();

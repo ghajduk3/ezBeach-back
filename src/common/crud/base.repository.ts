@@ -2,12 +2,14 @@ import { AbstractDto } from '../dtos/abstract.dto';
 import { Repository } from 'typeorm';
 import { AbstractEntity } from '../entities/abstract.entity';
 import { EntityNotFoundException } from '../../exceptions/entity-not-found.exception';
-import { InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+
 
 export class BaseRepository<
   T extends AbstractDto,
   E extends AbstractEntity
 > extends Repository<E> {
+
   createEntity(dto: T): Promise<E> {
     return new Promise<E>(async (resolve, reject) => {
       try {
@@ -19,7 +21,7 @@ export class BaseRepository<
     });
   }
 
-  findAll(): Promise<E[]> {
+   public findAll(): Promise<E[]> {
     return new Promise<E[]>(async (resolve, reject) => {
       try {
         const entities = await this.find();
