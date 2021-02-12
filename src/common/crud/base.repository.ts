@@ -16,7 +16,7 @@ export class BaseRepository<
         const entity = await this.save(dto);
         resolve(entity);
       } catch (e) {
-        throw new InternalServerErrorException(e);
+        reject(e);
       }
     });
   }
@@ -30,7 +30,7 @@ export class BaseRepository<
         }
         resolve(entities);
       } catch (e) {
-        throw new InternalServerErrorException(e);
+        reject(e);
       }
     });
   }
@@ -47,7 +47,7 @@ export class BaseRepository<
         }
         resolve(entity);
       } catch (e) {
-        throw new InternalServerErrorException(e);
+        reject(e);
       }
     });
   }
@@ -56,7 +56,7 @@ export class BaseRepository<
     this.findById(id)
       .then((res) => this.delete(id))
       .catch((e) => {
-        throw new e();
+        console.log('Err',e);
       });
   }
 

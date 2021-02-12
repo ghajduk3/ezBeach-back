@@ -19,9 +19,10 @@ export class BaseController<E extends AbstractEntity, T extends AbstractDto> {
   }
 
   @Post()
-  async create(@Body() dto: T): Promise<T> {
+  async create(@Body() dto: T): Promise<E> {
     const entity = await this.IBaseService.create(dto);
-    return <T>entity.toDto();
+    console.log(entity);
+    return entity;
   }
 
   @Delete(':id')
@@ -29,7 +30,7 @@ export class BaseController<E extends AbstractEntity, T extends AbstractDto> {
     this.IBaseService.delete(id);
   }
 
-  @Put()
+  @Put(':id')
   async update(@Body() dto: T,@Param('id') id:number): Promise<T> {
     return this.IBaseService.update(id, dto);
   }

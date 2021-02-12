@@ -14,7 +14,8 @@ import {
 import { CreateFailedException } from '../../../exceptions/create-failed.exception';
 import { EntityNotFoundException } from '../../../exceptions/entity-not-found.exception';
 import { EntityNotFoundError } from 'typeorm/error/EntityNotFoundError';
-import { BaseRepository } from '../../../common/repositories/base.repository';
+import { BaseRepository } from '../../../common/crud/base.repository';
+// import { BaseRepository } from '../../../common/repositories/base.repository';
 
 // @EntityRepository(MenuEntity)
 // export class MenuRepository extends AbstractRepository<MenuEntity> {
@@ -98,59 +99,64 @@ import { BaseRepository } from '../../../common/repositories/base.repository';
 //   }
 // }
 
+// @EntityRepository(MenuEntity)
+// export class MenuRepository extends BaseRepository<MenuEntity, MenuDto> {
+//   async findById(id: number) {
+//     let entity;
+//     try {
+//       entity = await this.repository.findOne({
+//         relations: ['categories'],
+//         where: { id: id },
+//       });
+//     } catch (error) {
+//       throw new InternalServerErrorException(error);
+//     }
+//     if (!entity) {
+//       throw new EntityNotFoundException(
+//         'There is no available menu with id : ' + id,
+//       );
+//     }
+//     return entity;
+//   }
+//
+//   async findByRestaurantId(restaurantId: number, language = 'EN') {
+//     let entity;
+//     try {
+//       entity = await this.repository.findOne({
+//         relations: ['categories'],
+//         where: { restaurantId: restaurantId, language: language },
+//       });
+//     } catch (error) {
+//       throw new InternalServerErrorException(error);
+//     }
+//     if (!entity) {
+//       throw new EntityNotFoundException(
+//         'There is no available menu with RestaurantId : ' +
+//           restaurantId +
+//           ' and language : ' +
+//           language,
+//       );
+//     }
+//     return entity;
+//   }
+//   async deleteById(id: number) {
+//     try {
+//       await this.repository.delete({ id:id });
+//     } catch (error) {
+//       throw new InternalServerErrorException(error);
+//     }
+//   }
+//
+//   async updateById(id: number, dto: Partial<MenuDto>) {
+//     try {
+//       await this.repository.update({ id:id }, dto);
+//     } catch (error) {
+//       throw new InternalServerErrorException(error);
+//     }
+//   }
+// }
+
 @EntityRepository(MenuEntity)
-export class MenuRepository extends BaseRepository<MenuEntity, MenuDto> {
-  async findById(id: number) {
-    let entity;
-    try {
-      entity = await this.repository.findOne({
-        relations: ['categories'],
-        where: { id: id },
-      });
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-    if (!entity) {
-      throw new EntityNotFoundException(
-        'There is no available menu with id : ' + id,
-      );
-    }
-    return entity;
-  }
+export class MenuRepository extends BaseRepository<MenuDto, MenuEntity> {
 
-  async findByRestaurantId(restaurantId: number, language = 'EN') {
-    let entity;
-    try {
-      entity = await this.repository.findOne({
-        relations: ['categories'],
-        where: { restaurantId: restaurantId, language: language },
-      });
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-    if (!entity) {
-      throw new EntityNotFoundException(
-        'There is no available menu with RestaurantId : ' +
-          restaurantId +
-          ' and language : ' +
-          language,
-      );
-    }
-    return entity;
-  }
-  async deleteById(id: number) {
-    try {
-      await this.repository.delete({ id:id });
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-  }
-
-  async updateById(id: number, dto: Partial<MenuDto>) {
-    try {
-      await this.repository.update({ id:id }, dto);
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-  }
 }
