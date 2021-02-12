@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MenuRepository } from '../../repositories/menu.repository';
-import { createMenuDto, Menu } from '../../dto/menu.dto';
-import { tsTsxJsJsxRegex } from 'ts-loader/dist/constants';
 import { MenuEntity } from '../../entities/menu.entity';
+import { createMenuDto } from '../../dto/createMenuDto.dto';
 
 @Injectable()
 export class MenuService {
@@ -14,9 +13,6 @@ export class MenuService {
 
   async createMenu(menu: createMenuDto): Promise<MenuEntity> {
     return this.menuRepo.createAndSave(menu);
-    // const menuEntity = this.menuRepo.create(menu);
-    // await this.menuRepo.save(menuEntity);
-    // return menuEntity;
   }
 
   async getMenuById(id: number): Promise<MenuEntity> {
@@ -28,11 +24,11 @@ export class MenuService {
     return menuEntity;
   }
 
-  async deleteMenuById(id:number){
+  async deleteMenuById(id: number) {
     await this.menuRepo.deleteById(id);
   }
 
-  async updateMenuById(id:number,menuDto:Partial<MenuEntity>){
-    return await this.menuRepo.updateMenyById(id, menuDto);
+  async updateMenuById(id: number, menuDto: Partial<MenuEntity>) {
+    return await this.menuRepo.updateById(id, menuDto);
   }
 }

@@ -1,23 +1,25 @@
 import { Body, Controller, Get, Post, Req } from '@nestjs/common';
-import { CategoryService } from '../services/db/category.service';
-import { Category, createCategoryDto } from '../dto/category.dto';
+
 import { ItemService } from '../services/db/item.service';
-import { createItemDto, Item } from '../dto/item.dto';
+import { ItemDto } from '../dto/item.dto';
+
 
 @Controller('item')
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
   @Get()
-  async findAllItems(@Req() req: any): Promise<Item[]> {
-    return await this.itemService.getAllItems();
+  async findAllItems(@Req() req: any): Promise<ItemDto[]> {
+    const items = await this.itemService.getAllItems();
+    return items.map((item) => item.toDto());
   }
 
   @Post()
   async createItem(
     @Req() req: any,
-    @Body() itemDto: createItemDto,
-  ): Promise<Item> {
-    return await this.itemService.createItem(itemDto);
+    @Body() itemDto: ItemDto,
+  ): Promise<ItemDto> {
+    const item = await this.itemService.createItem(itemDto);
+    return item.toDto();
   }
 }

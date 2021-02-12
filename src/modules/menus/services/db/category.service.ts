@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { CategoryRepository } from '../../repositories/category.repository';
-import { Category, createCategoryDto } from '../../dto/category.dto';
+import { CategoryEntity } from '../../entities/category.entity';
+import { CategoryDto } from '../../dto/category.dto';
 
 @Injectable()
 export class CategoryService {
   constructor(private readonly categoryRepo: CategoryRepository) {}
-  async getAllCategories(): Promise<Category[]> {
-    return await this.categoryRepo.find();
+  async getAllCategories(): Promise<CategoryEntity[]> {
+    return await this.categoryRepo.findAll();
   }
 
-  async createCategory(menu: createCategoryDto): Promise<Category> {
-    const categoryEntity = this.categoryRepo.create(menu);
-    await this.categoryRepo.save(categoryEntity);
-    return categoryEntity;
+  async createCategory(categoryDto: CategoryDto): Promise<CategoryEntity> {
+    return await this.categoryRepo.createAndSave(categoryDto);
   }
 }

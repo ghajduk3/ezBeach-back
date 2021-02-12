@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, Query, Req } from '@nestjs/common';
-import { RestaurantDto } from '../../restaurants/dtos/restaurant.dto';
-import { createMenuDto, Menu, MenuDto } from '../dto/menu.dto';
 import { MenuService } from '../services/db/menu.service';
+import { MenuDto } from '../dto/menu.dto';
+import { createMenuDto } from '../dto/createMenuDto.dto';
 
 @Controller('menu')
 export class MenuController {
@@ -22,7 +22,7 @@ export class MenuController {
   }
 
   @Get('filter')
-  async findMenuByRestaurantId(@Req() req:any, @Query() queryParams): Promise<Menu>{
+  async findMenuByRestaurantId(@Req() req:any, @Query() queryParams): Promise<MenuDto>{
     console.log(queryParams);
     return await this.menuService.getMenuByRestaurantId(
       queryParams.restaurantId
@@ -44,6 +44,6 @@ export class MenuController {
   @HttpCode(204)
   @Put(':id')
   async updateMenuById(@Req() req:any, @Param("id") id : number, @Body() menuDto :Partial<createMenuDto>){
-    return await this.menuService.updateMenuById(id,menuDto);
+    return await this.menuService.updateMenuById(id, menuDto);
   }
 }
