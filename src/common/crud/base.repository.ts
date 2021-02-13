@@ -1,18 +1,24 @@
 import { AbstractDto } from '../dtos/abstract.dto';
-import { Repository } from 'typeorm';
+import { AbstractRepository, Repository } from 'typeorm';
 import { AbstractEntity } from '../entities/abstract.entity';
 import { EntityNotFoundException } from '../../exceptions/entity-not-found.exception';
-import { HttpServer, HttpService, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  HttpServer,
+  HttpService,
+  HttpStatus,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { Http2ServerResponse } from 'http2';
 
 export class BaseRepository<
   T extends AbstractDto,
   E extends AbstractEntity
-> extends Repository<E> {
+> extends AbstractRepository<E> {
   createEntity(dto: T): Promise<E> {
     return new Promise<E>(async (resolve, reject) => {
       try {
-        const entity = await this.save(dto);
+        const entity = await this.repository.save(dto);
         resolve(entity);
       } catch (e) {
         reject(new InternalServerErrorException(e));
@@ -23,7 +29,7 @@ export class BaseRepository<
   public findAll(): Promise<E[]> {
     return new Promise<E[]>(async (resolve, reject) => {
       try {
-        const entities = await this.find();
+        const entities = await this.repository.find();
         if (!entities) {
           reject(
             new EntityNotFoundException('There are no available entities'),
@@ -39,7 +45,7 @@ export class BaseRepository<
   findById(id: number): Promise<E> {
     return new Promise<E>(async (resolve, reject) => {
       try {
-        const entity = await this.findOne({ where: { id: id } });
+        const entity = await this.repository.findOne({ where: { id: id } });
 
         if (!entity) {
           reject(
@@ -55,11 +61,11 @@ export class BaseRepository<
     });
   }
 
-  deleteById(id: number): Promise<string|number> {
-    return new Promise<string|number>(async (resolve, reject) => {
+  deleteById(id: number): Promise<string | number> {
+    return new Promise<string | number>(async (resolve, reject) => {
       try {
         const entity = await this.findById(id);
-        this.delete(id);
+        this.repository.delete(id);
         resolve('Entity is deleted');
       } catch (e) {
         reject(e);
@@ -67,14 +73,13 @@ export class BaseRepository<
     });
   }
 
-  async updateById(id: number, dto:T) :Promise<E>{
-    return new Promise<E>(async (resolve,reject)=>{
-      try{
-        await this.update(id,dto);
+  async updateById(id: number, dto: T): Promise<E> {
+    return new Promise<E>(async (resolve, reject) => {
+      try {
+        await this.repository.update(id, dto);
         const entity = await this.findById(id);
         resolve(entity);
-      }
-      catch (e){
+      } catch (e) {
         reject(e);
       }
     });

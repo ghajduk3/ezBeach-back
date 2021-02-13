@@ -4,10 +4,13 @@ import { AbstractEntity } from '../../../common/entities/abstract.entity';
 import { TableDto } from '../dtos/table.dto';
 
 @Entity({ name: 'tables' })
-export class TableEntity extends AbstractEntity<TableDto>{
-
-  @Column({}) table_name : string;
-  @ManyToOne(() => RestaurantEntity, { eager: true,onDelete : 'CASCADE', onUpdate :'CASCADE'})
+export class TableEntity extends AbstractEntity<TableDto> {
+  @Column({}) table_name: string;
+  @ManyToOne(() => RestaurantEntity, {
+    eager: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn([{ name: 'restaurantId', referencedColumnName: 'id' }])
   restaurant?: RestaurantEntity;
   @Column()
@@ -15,4 +18,5 @@ export class TableEntity extends AbstractEntity<TableDto>{
 
   dtoClass = TableDto;
 
+  status?:string;
 }

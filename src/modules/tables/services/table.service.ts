@@ -12,4 +12,7 @@ export class TableService extends BaseService<TableEntity, TableDto> {
   constructor(private readonly tableRepo: TableRepository) {
     super(tableRepo);
   }
+  get(id: number): Promise<TableEntity> {
+    return this.tableRepo.findById(id);
+  }
 }

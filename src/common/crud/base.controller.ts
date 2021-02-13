@@ -2,6 +2,8 @@ import { Body, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
 import { AbstractDto } from '../dtos/abstract.dto';
 import { AbstractEntity } from '../entities/abstract.entity';
 import { IBaseService } from './IBase.service';
+import { UtilsService } from '../../utils/services/utils.service';
+import { IAbstractDto } from '../dtos/IAbstract.dto';
 
 export class BaseController<E extends AbstractEntity, T extends AbstractDto> {
   constructor(private readonly IBaseService: IBaseService<E, T>) {}
@@ -13,9 +15,8 @@ export class BaseController<E extends AbstractEntity, T extends AbstractDto> {
   }
 
   @Get(':id')
-  async findById(@Param('id') id: number): Promise<T> {
-    const entity = await this.IBaseService.get(id);
-    return <T>entity.toDto();
+  async findById(@Param('id') id: number): Promise<IAbstractDto> {
+    return this.IBaseService.get(id);
   }
 
   @Post()
@@ -31,8 +32,7 @@ export class BaseController<E extends AbstractEntity, T extends AbstractDto> {
   }
 
   @Put(':id')
-  async update(@Body() dto: T,@Param('id') id:number): Promise<T> {
-    const entity = await this.IBaseService.update(id, dto);
-    return <T>entity.toDto();
+  async update(@Body() dto: T,@Param('id') id:number): Promise<IAbstractDto> {
+    return await this.IBaseService.update(id, dto);
   }
 }

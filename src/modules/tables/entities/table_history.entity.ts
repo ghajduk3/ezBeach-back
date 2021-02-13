@@ -36,7 +36,7 @@ export class TableHistoryEntity extends AbstractEntity<TableHistoryDto> {
   @JoinColumn([{ name: 'statusId', referencedColumnName: 'id' }])
   status?: TableStatusEntity['status'];
   @Column()
-  statusId;
+  statusId:number;
 
   dtoClass = TableHistoryDto;
 }
