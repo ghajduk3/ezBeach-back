@@ -1,4 +1,4 @@
-import { Body, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
 import { AbstractDto } from '../dtos/abstract.dto';
 import { AbstractEntity } from '../entities/abstract.entity';
 import { IBaseService } from './IBase.service';
@@ -21,17 +21,18 @@ export class BaseController<E extends AbstractEntity, T extends AbstractDto> {
   @Post()
   async create(@Body() dto: T): Promise<E> {
     const entity = await this.IBaseService.create(dto);
-    console.log(entity);
     return entity;
   }
 
+  @HttpCode(204)
   @Delete(':id')
-  async delete(@Param('id') id: number) {
-    this.IBaseService.delete(id);
+  async delete(@Param('id') id: number): Promise<string|number> {
+    return this.IBaseService.delete(id);
   }
 
   @Put(':id')
   async update(@Body() dto: T,@Param('id') id:number): Promise<T> {
-    return this.IBaseService.update(id, dto);
+    const entity = await this.IBaseService.update(id, dto);
+    return <T>entity.toDto();
   }
 }

@@ -26,11 +26,11 @@ export class BaseService<E extends AbstractEntity, T extends AbstractDto>
     return this.genericRepository.findById(id);
   }
 
-  delete(id: number) {
-    this.genericRepository.deleteById(id);
+  delete(id: number): Promise<string|number> {
+    return this.genericRepository.deleteById(id);
   }
 
-  update(id: number, dto: T) {
-    this.genericRepository.updateById(id, dto)
+  update(id: number, dto: T) : Promise<E> {
+    return this.genericRepository.updateById(id, dto);
   }
 }

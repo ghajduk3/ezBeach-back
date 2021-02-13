@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { AbstractDto } from '../../../common/dtos/abstract.dto';
 import { MenuEntity } from '../entities/menu.entity';
+import { CategoryDto } from './category.dto';
 
 
 export class MenuDto extends AbstractDto{
@@ -11,6 +12,7 @@ export class MenuDto extends AbstractDto{
   createdOn?: Date;
   updatedOn?: Date;
   restaurantId: number;
+  categories: CategoryDto[];
 
   constructor(menu: MenuEntity) {
     super();
@@ -20,6 +22,7 @@ export class MenuDto extends AbstractDto{
     this.language = menu.language;
     this.createdOn = menu.createdOn;
     this.restaurantId = menu.restaurantId;
+    this.categories = menu.categories;
   }
 
 }

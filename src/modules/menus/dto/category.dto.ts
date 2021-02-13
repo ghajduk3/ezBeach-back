@@ -1,5 +1,6 @@
 import { CategoryEntity } from '../entities/category.entity';
 import { AbstractDto } from '../../../common/dtos/abstract.dto';
+import { ItemDto } from './item.dto';
 
 
 
@@ -11,6 +12,7 @@ export class CategoryDto extends AbstractDto{
   createdOn?: Date;
   updatedOn?: Date;
   menuId: number;
+  items: ItemDto[];
 
 
   constructor(categoryEntity : CategoryEntity) {
@@ -22,5 +24,6 @@ export class CategoryDto extends AbstractDto{
     this.createdOn = categoryEntity.createdOn;
     this.updatedOn = categoryEntity.updatedOn;
     this.menuId = categoryEntity.menuId;
+    this.items = categoryEntity.items;
   }
 }

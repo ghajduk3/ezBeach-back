@@ -15,6 +15,18 @@ import { CategoryEntity } from './entities/category.entity';
 import { CategoryRepository } from './repositories/category.repository';
 import { ItemEntity } from './entities/item.entity';
 import { ItemRepository } from './repositories/item.repository';
+import { TableEntity } from '../tables/entities/table.entity';
+import { TableRepository } from '../tables/repositories/table.repository';
+import { TableStatusEntity } from '../tables/entities/table_status.entity';
+import { TableStatusRepository } from '../tables/repositories/table_status.repository';
+import { TableHistoryRepository } from '../tables/repositories/table_history.repository';
+import { TableHistoryEntity } from '../tables/entities/table_history.entity';
+import { TableController } from '../tables/controllers/table.controller';
+import { TableStatusController } from '../tables/controllers/table_status.controller';
+import { TableHistoryController } from '../tables/controllers/table_history.controller';
+import { TableService } from '../tables/services/table.service';
+import { TableStatusService } from '../tables/services/table_status.service';
+import { TableHistoryService } from '../tables/services/table_history.service';
 
 
 
@@ -28,11 +40,17 @@ import { ItemRepository } from './repositories/item.repository';
       CategoryRepository,
       ItemEntity,
       ItemRepository,
+      TableEntity,
+      TableRepository,
+      TableStatusEntity,
+      TableStatusRepository,
+      TableHistoryRepository,
+      TableHistoryEntity
     ]),
     ConfigModule,
   ],
-  controllers: [MenuController, CategoryController, ItemController],
-  providers: [MenuService, CategoryService, ItemService],
+  controllers: [MenuController, CategoryController, ItemController,TableController,TableStatusController,TableHistoryController],
+  providers: [MenuService, CategoryService, ItemService,TableService,TableStatusService,TableHistoryService],
 })
 export class MenusModule {
   constructor(private connection: Connection) {}
