@@ -15,6 +15,27 @@ import { EntityNotFoundException } from '../../../exceptions/entity-not-found.ex
 
 @EntityRepository(TableEntity)
 export class TableRepository extends BaseRepository<TableDto, TableEntity> {
+  async findAll(): Promise<TableEntity[]> {
+    return new Promise<TableEntity[]>(async (resolve, reject) => {
+      try {
+        const entities = await this.manager.query(
+          'select t.id,t.table_name ,th.set_at, th.set_by, ts.status\n' +
+            'from tables t\n' +
+            'left join table_history th on t.id = th."tableId"\n' +
+            'left join table_status ts on th."statusId" = ts.id\n' +
+            'where th.set_at in (\n' +
+            '    select max(h.set_at)\n' +
+            '    from tables tt\n' +
+            '    left join table_history h on tt.id = h."tableId"\n' +
+            '    group by tt.id\n' +
+            '    )',
+        );
+        resolve(entities);
+      } catch (e) {
+        reject(new InternalServerErrorException(e));
+      }
+    });
+  }
   async findById(id: number): Promise<TableEntity> {
     return new Promise<TableEntity>(async (resolve, reject) => {
       try {
@@ -24,6 +45,7 @@ export class TableRepository extends BaseRepository<TableDto, TableEntity> {
             'table.id as id',
             'table.table_name as table_name',
             'table.restaurantId as restaurantId',
+            'th.set_by as set_by',
             'ts.status as status',
           ])
           .from(TableEntity, 'table')
@@ -32,7 +54,7 @@ export class TableRepository extends BaseRepository<TableDto, TableEntity> {
           .where('table.id = :id', { id: id })
           .orderBy('th.set_at', 'DESC')
           .limit(1)
-          .getOneOrFail();
+          .getRawOne();
         resolve(entity);
       } catch (e) {
         if (e instanceof EntityNotFoundError) {

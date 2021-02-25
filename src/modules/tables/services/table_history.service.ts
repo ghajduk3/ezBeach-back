@@ -15,4 +15,11 @@ export class TableHistoryService extends BaseService<
   constructor(private readonly tableHistoryRepo: TableHistoryRepository) {
     super(tableHistoryRepo);
   }
+
+  async findByRestaurantTable(
+    restaurantId: number,
+    tableId: number,
+  ): Promise<TableHistoryEntity[]> {
+    return this.tableHistoryRepo.findByRestaurantTable(restaurantId, tableId);
+  }
 }
