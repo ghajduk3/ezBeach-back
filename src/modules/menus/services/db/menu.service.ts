@@ -3,6 +3,7 @@ import { MenuEntity } from '../../entities/menu.entity';
 import { BaseService } from '../../../../common/crud/base.service';
 import { MenuDto } from '../../dto/menu.dto';
 import { MenuRepository } from '../../repositories/menu.repository';
+import { TableHistoryEntity } from '../../../tables/entities/table_history.entity';
 
 @Injectable()
 export class MenuService extends BaseService<MenuEntity, MenuDto> {
@@ -10,10 +11,10 @@ export class MenuService extends BaseService<MenuEntity, MenuDto> {
     super(menuRepo);
   }
 
-
-  // async getMenuByRestaurantId(id: number): Promise<MenuEntity> {
-  //   const menuEntity = await this.menuRepo.findByRestaurantId(id);
-  //   return menuEntity;
-  // }
-  //
+  async findByRestaurantLanguage(
+    restaurantId: number,
+    languageCode: string,
+  ): Promise<MenuEntity[]> {
+    return this.menuRepo.findByRestaurantLanguage(restaurantId, languageCode);
+  }
 }
