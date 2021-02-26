@@ -11,16 +11,18 @@ import { ConfigModule } from '@nestjs/config';
 import { config } from '../../config/config';
 import { DatabaseConfig } from '../../config/database.config';
 import { MenusModule } from '../menus/menus.module';
+import { DatabaseModule } from '../database/database.module';
 
 
 @Module({
   imports: [
     RestaurantsModule,
     // TypeOrmModule.forRoot(ormconfig),
-    TypeOrmModule.forRootAsync({
-      imports : [ConfigModule],
-      useClass: DatabaseConfig
-    }),
+    // TypeOrmModule.forRootAsync({
+    //   imports : [ConfigModule],
+    //   useClass: DatabaseConfig,
+    // }),
+    DatabaseModule,
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
