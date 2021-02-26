@@ -14,6 +14,6 @@ export = {
 
   migrations: ['dist/migrations/*.js'],
   cli: {
-    migrationsDir: 'src/migrations',
+    migrationsDir: 'src/modules/database/migrations',
   },
 };
